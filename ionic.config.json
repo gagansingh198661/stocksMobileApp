@@ -1,0 +1,7 @@
+{
+  "name": "stocksMobilApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
