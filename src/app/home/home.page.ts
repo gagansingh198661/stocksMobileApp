@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { StockService } from '../services/stock.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -8,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private stockService:StockService) {
+    this.save();
+  }
+
+  public save(){
+    console.log("save");
+  }
 
 }
