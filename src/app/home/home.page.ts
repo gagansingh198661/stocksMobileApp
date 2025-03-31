@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { StockService } from '../services/stock.service';
-import { interval, Observable, Subscription } from 'rxjs';
+import { interval, Observable, Subscription,pipe } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
+import { Stock } from '../models/Stock';
+import { InfoDTO } from '../models/InfoDTO';
 
 @Component({
   selector: 'app-home',
@@ -11,20 +13,14 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class HomePage {
 
-  private stocksData : any;
-
-  constructor(private stockService:StockService) {
-    
+  infoDTOList!: InfoDTO[] ;
+  constructor(private stockService:StockService) {    
     interval(10000).subscribe( val => this.save() )
   }
 
-  public  save(){
-    console.log("save");
-    const req = this.stockService.getStocksData() as Observable<HttpResponse<Object>>;
-    req.subscribe(resp=> {
-      this.stocksData = {...resp.body!};
-    });
-    console.log('response : '+JSON.stringify(this.stocksData));
+  public save(){
+     this.stockService.getStocksData().subscribe(value=>this.infoDTOList =(value));
+    console.log(this.infoDTOList);
   }
 
 }
