@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Stock</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">stock</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card *ngIf="infoDTO">
+    <ion-card-header>
+      <ion-card-title>Stock Name</ion-card-title>
+      <ion-card-subtitle>Symbol : {{infoDTO.stock.stockSymbol}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Current Price :{{infoDTO.stock.currentPrice}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Target Price :{{infoDTO.stock.targetPrice}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf=" infoDTO.stock.own == true ">
+          <ion-label>Current Price :{{infoDTO.stock.boughtPrice}}</ion-label>
+        </ion-item>      
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="infoDTO">
+    <ion-card-header>
+      <ion-card-title>Alert Triggered</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngFor="let alert for infoDTO.stock.alerts">
+        <ion-item>
+          <ion-grid></ion-grid>
+          <ion-label> :{{infoDTO.stock.currentPrice}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Target Price :{{infoDTO.stock.targetPrice}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf=" infoDTO.stock.own == true ">
+          <ion-label>Current Price :{{infoDTO.stock.boughtPrice}}</ion-label>
+        </ion-item>      
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+
