@@ -30,15 +30,37 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngIf="infoDTO">
+  <ion-card *ngIf="infoDTO.alertDTOList.length > 0">
     <ion-card-header>
       <ion-card-title>Alert Triggered</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-list *ngFor="let alert for infoDTO.stock.alerts">
+      <ion-list *ngFor="let alert of infoDTO.alertDTOList">
         <ion-item>
           <ion-grid></ion-grid>
           <ion-label> :{{infoDTO.stock.currentPrice}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Target Price :{{infoDTO.stock.targetPrice}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf=" infoDTO.stock.own == true ">
+          <ion-label>Current Price :{{infoDTO.stock.boughtPrice}}</ion-label>
+        </ion-item>      
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="infoDTO.alerts">
+    <ion-card-header>
+      <ion-card-title>Alerts</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngFor="let alert of infoDTO.alerts">
+        <ion-item>
+          <ion-grid>
+            <ion-row>Alert Type : {{alert.alertType}}</ion-row>
+            <ion-row *ngIf=" alert.alertType == 'PERCENT' ">Percent : {{alert.percent}}</ion-row>
+          </ion-grid>
         </ion-item>
         <ion-item>
           <ion-label>Target Price :{{infoDTO.stock.targetPrice}}</ion-label>
