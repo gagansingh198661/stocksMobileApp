@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InfoDTO } from '../models/InfoDTO';
 
@@ -8,6 +8,8 @@ import { InfoDTO } from '../models/InfoDTO';
   styleUrls: ['./stock.page.scss'],
   standalone: false,
 })
+
+
 export class StockPage implements OnInit {
 
   infoDTO! : InfoDTO

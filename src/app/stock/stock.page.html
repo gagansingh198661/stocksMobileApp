@@ -58,19 +58,32 @@
       <ion-list *ngFor="let alert of infoDTO.alerts">
         <ion-item>
           <ion-grid>
-            <ion-row>Alert Type : {{alert.alertType}}</ion-row>
-            <ion-row *ngIf=" alert.alertType == 'PERCENT' ">Percent : {{alert.percent}}</ion-row>
+            <ion-row>
+              <ion-col >Alert Type : {{alert.alertType}}   </ion-col>
+              <ion-col size="auto"><ion-toggle [checked]=" alert.active "></ion-toggle></ion-col>
+            </ion-row>
+            <ion-row *ngIf=" alert.alertType == 'PERCENT' ">
+              Percent : {{alert.percent}} 
+            </ion-row>
+            <ion-row *ngIf=" alert.alertType == 'TARGET' ">Target : {{alert.lowerlimit}} : {{alert.upperlimit}}</ion-row>
+            <ion-row>
+              <ion-label *ngIf=" infoDTO.stock.own == true ">Bought Price :{{infoDTO.stock.boughtPrice}}</ion-label>
+            </ion-row>
           </ion-grid>
         </ion-item>
         <ion-item>
-          <ion-label>Target Price :{{infoDTO.stock.targetPrice}}</ion-label>
+          <ion-button fill="clear">Edit</ion-button>
+          <ion-button fill="clear">Delete</ion-button>
         </ion-item>
-        <ion-item *ngIf=" infoDTO.stock.own == true ">
-          <ion-label>Current Price :{{infoDTO.stock.boughtPrice}}</ion-label>
-        </ion-item>      
       </ion-list>
     </ion-card-content>
+    <ion-button id="addAlert">Add</ion-button>
+    
   </ion-card>
+  <app-stock-alert-modal currentPrice="{{infoDTO.stock.currentPrice}}"></app-stock-alert-modal>
+
+
 </ion-content>
+
 
 
