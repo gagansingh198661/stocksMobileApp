@@ -23,23 +23,32 @@
             <ion-col size="4">
             </ion-col>
           </ion-row>
-          
-          <ion-row *ngIf="rangeSelected">
-            <ion-col>   
-              <ion-input label="From" placeholder="From" type="number" formControlName="from"></ion-input>
+          <div *ngIf="rangeSelected">
+            <ion-row >
+              <ion-col>   
+                <ion-input label="From" placeholder="From" type="number" formControlName="from"></ion-input>
+              </ion-col>
+              <ion-col>   
+                <ion-input label="To" type="number" placeholder="To" formControlName="to"></ion-input>
             </ion-col>
-            <ion-col>   
-              <ion-input label="To" type="number" placeholder="To" formControlName="to"></ion-input>
-          </ion-col>
-
-            <ion-col></ion-col>
-          </ion-row>
-          <ion-row *ngIf="rangeError">
-            <p class="error">{{ rangeError }}</p>
-          </ion-row>
-          <ion-row *ngIf="percentSelected">
-            percent Selected
-          </ion-row>
+            </ion-row>
+            <ion-row *ngIf="rangeError">
+              <p [style.color]="'red'">{{ rangeError }}</p>
+            </ion-row>
+          </div>
+          
+          <div *ngIf="percentSelected">
+            <ion-row >
+              <ion-col>   
+                <ion-input label="Percent" placeholder="Enter Percentage" type="number" 
+                formControlName="percent"></ion-input>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="getError('percent')">
+              <p [style.color]="'red'">{{ getError('percent') }}</p>
+            </ion-row>
+          </div>
+          
           <ion-row>
             <ion-button type="submit">Create</ion-button>
             <ion-button (click)="cancel()">Cancel</ion-button>

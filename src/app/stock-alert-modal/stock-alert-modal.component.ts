@@ -8,10 +8,6 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonList,
-  IonModal,
-  IonTitle,
-  IonToolbar,
   IonGrid,
   IonRow,
   IonCol,
@@ -31,9 +27,8 @@ import { rangeValidator } from '../validators/range.validator';
   styleUrls: ['./stock-alert-modal.component.scss'],
   standalone:true,
   imports: [CommonModule,IonButton, IonContent, IonHeader, IonIcon, IonItem,
-     IonLabel, IonList, IonModal, IonTitle, IonToolbar, IonGrid,IonCol,
+     IonLabel, IonGrid,IonCol,
      IonRow,IonSelect,IonSelectOption,IonInput,ReactiveFormsModule],
-
 })
 export class StockAlertModalComponent  implements OnInit {
 
@@ -43,11 +38,10 @@ export class StockAlertModalComponent  implements OnInit {
   typesOfAlerts:string[];
   percentSelected:boolean;
   rangeSelected:boolean;
-  from!:number;
   alertForm = new FormGroup({alertType: new FormControl(),
     from: new FormControl('',[Validators.required]),
     to: new FormControl('',[Validators.required]),
-    percent: new FormControl()
+    percent: new FormControl('',[Validators.required])
   },  { validators: rangeValidator });
 
   constructor(private modalCtrl: ModalController) {
@@ -67,10 +61,12 @@ export class StockAlertModalComponent  implements OnInit {
     if(event.detail.value=='Percent'){
       this.percentSelected=true;
       this.rangeSelected=false;
+      this.alertForm.controls.from.reset();
     }
     if(event.detail.value=='Range'){
       this.percentSelected=false;
       this.rangeSelected=true;
+      this.alertForm.controls.percent.reset();
     }
   }
 
@@ -83,14 +79,25 @@ export class StockAlertModalComponent  implements OnInit {
   onSubmit() {
     if (this.alertForm.valid) {
       console.log('Form Submitted:', this.alertForm.value);
+      return this.modalCtrl.dismiss(this.alertForm, 'confirm');
     } else {
-      console.error('Form Validation Errors:', this.rangeError);
+      return Promise.resolve(false);
     }
-    return this.modalCtrl.dismiss(this.alertForm, 'confirm');
+    
   }
 
   get rangeError() {
     return   this.alertForm.errors?.['rangeError'];
+  }
+
+  getError(controlName: string): string | null {
+    const control = this.alertForm.get(controlName);
+    if (control?.errors) {
+      if (control.errors['required']) {
+        return `${controlName} is required`;
+      } 
+    }
+    return null;
   }
 
   
