@@ -1,18 +1,22 @@
 
 <ion-content class="ion-padding">
-
-  <ion-modal id="example-modal" #modal trigger="addAlert">
-    <ng-template>
+  
+  
+  
+    <form [formGroup]="alertForm"  (ngSubmit)="onSubmit()">
       <div class="wrapper">
         <h1>Create Alert</h1>
         <ion-grid>
           <ion-row>
+            <ion-col *ngIf="stockSymbol">{{stockSymbol}}</ion-col>
+          </ion-row>
+          <ion-row>
             <ion-col>Current Price</ion-col>
-            <ion-col>{{currentPrice}}</ion-col>
+            <ion-col *ngIf="currentPrice">{{currentPrice}}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-select  label="Default label" placeholder="Choose Type Of Alert" (ionChange)="handleChange($event)">
+              <ion-select  label="Alert" placeholder="Choose Type Of Alert" (ionChange)="handleChange($event)">
                 <ion-select-option *ngFor="let alertType of typesOfAlerts" [value]="alertType">{{alertType}}</ion-select-option>
               </ion-select>
             </ion-col>
@@ -21,14 +25,37 @@
           </ion-row>
           
           <ion-row *ngIf="rangeSelected">
-            range Selected
+            <ion-col>   
+              <ion-input label="From" placeholder="From" type="number" formControlName="from"></ion-input>
+            </ion-col>
+            <ion-col>   
+              <ion-input label="To" type="number" placeholder="To" formControlName="to"></ion-input>
+          </ion-col>
+
+            <ion-col></ion-col>
+          </ion-row>
+          <ion-row *ngIf="rangeError">
+            <p class="error">{{ rangeError }}</p>
           </ion-row>
           <ion-row *ngIf="percentSelected">
             percent Selected
           </ion-row>
+          <ion-row>
+            <ion-button type="submit">Create</ion-button>
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-row>
         </ion-grid>
-       
+      
       </div>
-    </ng-template>
-  </ion-modal>
+    </form> 
+  
 </ion-content>
+
+<!-- <ion-content class="ion-padding">
+  <ion-item>
+    <ion-input labelPlacement="stacked" label="Enter your name"  placeholder="Your name"></ion-input>
+  </ion-item>
+  <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    <ion-title>Welcome</ion-title>
+      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+</ion-content> -->

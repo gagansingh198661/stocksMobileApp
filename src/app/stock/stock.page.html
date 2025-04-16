@@ -77,10 +77,13 @@
         </ion-item>
       </ion-list>
     </ion-card-content>
-    <ion-button id="addAlert">Add</ion-button>
+    <ion-button id="addAlert" (click)="openModal()">Add</ion-button>
     
   </ion-card>
-  <app-stock-alert-modal currentPrice="{{infoDTO.stock.currentPrice}}"></app-stock-alert-modal>
+  <!-- <app-stock-alert-modal currentPrice="{{infoDTO.stock.currentPrice}}" 
+  stockSymbol="{{infoDTO.stock.stockSymbol}}" 
+  >
+  </app-stock-alert-modal> -->
 
 
 </ion-content>
