@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, UpperCasePipe } from '@angular/common';
 import { StockService } from '../services/stock.service';
+import { Alert } from '../models/Alert';
 import { Validators, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   IonButton,
@@ -36,6 +37,7 @@ export class StockAlertModalComponent  implements OnInit {
 
   @Input() currentPrice!:String;
   @Input() stockSymbol!:string;
+  @Input() alerts!:Alert[];
   name!:string;
   typesOfAlerts:string[];
   percentSelected:boolean;
@@ -79,13 +81,32 @@ export class StockAlertModalComponent  implements OnInit {
 
   onSubmit() {
     if (this.alertForm.valid) {
-      console.log('Form Submitted:', this.alertForm.value);
-      this.createAlarm(this.alertForm);
+      if(this.validateAlarm(this.alertForm)){
+        this.createAlarm(this.alertForm);
+        console.log('Form Submitted:', this.alertForm.value);
+      }else{
+        console.log("invalid");
+      }
+      
       return this.modalCtrl.dismiss(this.alertForm.value, 'confirm');
     } else {
       console.log("error");
       return Promise.resolve(false);
     }
+    
+  }
+  validateAlarm(alertForm: FormGroup):boolean {
+    for(const alert of this.alerts ){
+      if(alert.alertType.toLowerCase() === (alertForm.value.alertType as string).toLowerCase()){
+        if(alert.alertType.toLowerCase() === 'percent'){
+          const percentStr = alertForm.value.percent.toString();
+          if(alert.percent.toString() === percentStr){
+            return false;
+          }
+        }
+      }
+    }
+    return true;
     
   }
 

@@ -30,7 +30,7 @@ export class StockPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: StockAlertModalComponent,
       componentProps: { stockSymbol: this.infoDTO.stock.stockSymbol,
-        currentPrice:this.infoDTO.stock.currentPrice
+        currentPrice:this.infoDTO.stock.currentPrice,alerts:this.infoDTO.alerts
        }
     });
     modal.present();
