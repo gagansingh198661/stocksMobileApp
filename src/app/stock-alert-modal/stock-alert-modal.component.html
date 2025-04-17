@@ -8,7 +8,9 @@
         <h1>Create Alert</h1>
         <ion-grid>
           <ion-row>
-            <ion-col *ngIf="stockSymbol">{{stockSymbol}}</ion-col>
+            <ion-col *ngIf="stockSymbol" >
+              {{stockSymbol}}
+            </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>Current Price</ion-col>
@@ -16,14 +18,14 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-select  label="Alert" placeholder="Choose Type Of Alert" (ionChange)="handleChange($event)">
+              <ion-select  label="Alert" placeholder="Choose Type Of Alert" (ionChange)="handleChange($event)" formControlName="alertType">
                 <ion-select-option *ngFor="let alertType of typesOfAlerts" [value]="alertType">{{alertType}}</ion-select-option>
               </ion-select>
             </ion-col>
             <ion-col size="4">
             </ion-col>
           </ion-row>
-          <div *ngIf="rangeSelected">
+          <div *ngIf="targetSelected">
             <ion-row >
               <ion-col>   
                 <ion-input label="From" placeholder="From" type="number" formControlName="from"></ion-input>

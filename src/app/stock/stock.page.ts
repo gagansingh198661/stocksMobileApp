@@ -4,6 +4,7 @@ import { InfoDTO } from '../models/InfoDTO';
 import { ModalController } from '@ionic/angular';
 import { StockAlertModalComponent } from '../stock-alert-modal/stock-alert-modal.component';
 import { FormGroup } from '@angular/forms';
+import { CreateAlertRequest } from '../request/CreateAlertRequest';
 
 @Component({
   selector: 'app-stock',
@@ -35,12 +36,12 @@ export class StockPage implements OnInit {
     modal.present();
 
     const { data , role }= await modal.onDidDismiss();
-    console.log(data);  
     
 
-    // if (role === 'confirm') {
-    //   console.log('Hello, '+data);
-    // }
+    //  if (role === 'confirm') {
+    //    const alertRequest = new CreateAlertRequest(data.stockSymbol,data.alertType,data.from,data.to,
+    //     data.percent);
+    //  }
   }
 
   ngOnInit() {
