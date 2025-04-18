@@ -28,6 +28,7 @@ export class StockService {
   }
 
   public createAlert(alertRequest:CreateAlertRequest){
+    console.log(alertRequest);
     this.http.post(this.url+"/alert/createAlert",alertRequest).subscribe(
       (response)=> {
         console.log('Alert Created : ',response);

@@ -127,8 +127,9 @@ export class StockAlertModalComponent  implements OnInit {
   }
 
   createAlarm(alertForm:FormGroup) {
+    const alertType = (alertForm.value.alertType as string).toUpperCase();
     const request = new CreateAlertRequest(this.stockSymbol,
-                                            alertForm.value.alertType,
+                                            alertType,
                                             alertForm.value.from,
                                             alertForm.value.to,
                                             alertForm.value.percent);
