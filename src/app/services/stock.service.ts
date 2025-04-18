@@ -39,6 +39,14 @@ export class StockService {
     );
   }
 
+  public getStockData(stockSymbol : string):Observable<InfoDTO>{
+    return this.http.get<InfoDTO>(this.url+"/getStock?stockSymbol="+stockSymbol);
+  }
+
+  public deleteAlert(id : number):Observable<InfoDTO>{
+    return this.http.delete<InfoDTO>(this.url+"/alert/deleteAlert?id="+id);
+  }
+
 }
 
 

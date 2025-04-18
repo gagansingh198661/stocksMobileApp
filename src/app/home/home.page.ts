@@ -14,10 +14,10 @@ export class HomePage {
 
   infoDTOList!: InfoDTO[] ;
   constructor(private stockService:StockService,private router:Router) {    
-    interval(10000).subscribe( val => this.save() )
+    interval(10000).subscribe( val => this.getUpdatedData() )
   }
 
-  public save(){
+  public getUpdatedData(){
     this.stockService.getStocksData().subscribe(value=>this.infoDTOList =(value));
     console.log(this.infoDTOList);
   }
@@ -25,7 +25,7 @@ export class HomePage {
   public viewStock(infoDTO:InfoDTO){
       this.router.navigate(['/stock'],{
         queryParams:{
-          'result' : JSON.stringify(infoDTO)
+          'result' : infoDTO.stock.stockSymbol
         }
       })
   }

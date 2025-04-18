@@ -5,4 +5,5 @@ export interface Alert {
     active:boolean;
     percent:number;
     alertType:String;
+    id:number;
 }
